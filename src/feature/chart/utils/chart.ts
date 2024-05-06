@@ -21,15 +21,4 @@ export const convertChartOptionToForm = (options: any) => {
     xAxis,
     yAxis,
   };
-
-  // console.log("-----");
-
-  // console.log({
-  //   // ...options,
-  //   legend,
-  //   xAxis,
-  //   yAxis,
-  // });
-
-  // console.log("==========================");
 };

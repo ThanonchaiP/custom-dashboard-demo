@@ -19,4 +19,14 @@ export const columns = [
     type: "string",
     key: "column",
   },
+  {
+    name: "age",
+    type: "string",
+    key: "column",
+  },
+  {
+    name: "address",
+    type: "string",
+    key: "column",
+  },
 ];

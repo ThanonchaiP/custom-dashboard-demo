@@ -20,6 +20,7 @@ type CreateChartStore = {
   setData: (data: Data) => void;
   setDataColumn: (column: Column) => void;
   setDraftColumn: (column: Column) => void;
+  setDraftColumns: (columns: Column[]) => void;
   removeDraftColumn: (column: Column) => void;
   setSelectColumn: (column?: Column) => void;
   setIsDragging: (isDragging: boolean) => void;
@@ -37,7 +38,23 @@ const initialData: Data = {
 const initialColumn = {
   selectedColumn: undefined,
   isDragging: false,
-  data: [],
+  data: [
+    {
+      name: "name",
+      type: "string",
+      key: "column",
+    },
+    {
+      name: "age",
+      type: "string",
+      key: "column",
+    },
+    {
+      name: "address",
+      type: "string",
+      key: "column",
+    },
+  ],
 };
 
 export const useCreateChartStore = create<CreateChartStore>((set, get) => ({
@@ -82,19 +99,61 @@ export const useCreateChartStore = create<CreateChartStore>((set, get) => ({
     }));
   },
   setDraftColumn: (column) => {
-    set({
+    set((state) => ({
+      data: {
+        ...state.data,
+        options: {
+          ...state.data.options,
+          columns: [
+            ...(state.data.options?.columns ?? []),
+            {
+              title: column.name,
+              dataIndex: column.name,
+              key: column.name,
+            },
+          ],
+        },
+      },
       column: {
         selectedColumn: undefined,
         isDragging: false,
-        data: [...(get().column.data ?? []), column],
+        data: [...(state.column.data ?? []), column],
       },
-    });
+    }));
+  },
+  setDraftColumns: (columns) => {
+    set((state) => ({
+      data: {
+        ...state.data,
+        options: {
+          ...state.data.options,
+          columns: columns.map((item) => ({
+            title: item.name,
+            dataIndex: item.name,
+            key: item.name,
+          })),
+        },
+      },
+      column: {
+        ...state.column,
+        data: columns,
+      },
+    }));
   },
   removeDraftColumn: (column) => {
     set((state) => ({
+      data: {
+        ...state.data,
+        options: {
+          ...state.data.options,
+          columns: state.data.options?.columns?.filter(
+            (item: any) => item.key !== column.name
+          ),
+        },
+      },
       column: {
         ...state.column,
-        data: get().column.data.filter((item) => item.name !== column.name),
+        data: state.column.data.filter((item) => item.name !== column.name),
       },
     }));
   },

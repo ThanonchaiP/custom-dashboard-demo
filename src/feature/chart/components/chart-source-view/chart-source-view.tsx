@@ -2,9 +2,8 @@ import { useCreateChartStore } from "@/store";
 import { css } from "@emotion/css";
 import { EmptyChart } from "./empty-chart";
 import EChartsReact from "echarts-for-react";
-import { Empty, Flex, Table } from "antd";
+import { Flex, Table } from "antd";
 import { colorsScheme } from "@/mock-data/colors";
-import { tableColumns, tableData } from "@/mock-data/table";
 
 const CHART_LIST = ["line", "bar", "pie", "area"];
 
@@ -102,8 +101,8 @@ export const ChartSourceView = () => {
       ) : data.key === "table" ? (
         <Table
           rowKey="id"
-          columns={tableColumns}
-          dataSource={tableData}
+          columns={data.options?.columns ?? []}
+          dataSource={data.options?.dataSource ?? []}
           pagination={{ showSizeChanger: false }}
           style={{ margin: "24px 0" }}
         />

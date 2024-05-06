@@ -1,8 +1,8 @@
 import { css } from "@emotion/css";
 import { Tabs } from "antd";
-import { TabData } from "./tab-data";
 import { TabCustomize } from "./tab-customize";
 import { useCreateChartStore } from "@/store";
+import { TabData } from "../chart-tab-data";
 
 export const ChartSourceControl = () => {
   const { data } = useCreateChartStore();

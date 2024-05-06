@@ -2,6 +2,11 @@ export interface ChartOptionsType {
   orientation?: Partial<Orientation>;
   title?: Partial<Title>;
   options?: Partial<Options>;
+  query?: Partial<Query>;
+}
+
+export interface Query {
+  columns: boolean;
 }
 
 export interface Orientation {
@@ -71,7 +76,7 @@ export interface OptionYAxis {
   bounds: boolean;
 }
 
-export const chartOptions = {
+export const chartOptionSchema = {
   bar: {
     orientation: {
       layout: true,
@@ -219,6 +224,11 @@ export const chartOptions = {
         outerRadius: true,
         innerRadius: true,
       },
+    },
+  },
+  table: {
+    query: {
+      columns: true,
     },
   },
 } as Record<string, ChartOptionsType>;

@@ -1,6 +1,6 @@
 import { useDataStore } from "@/store";
 import { css } from "@emotion/css";
-import { Flex, Spin } from "antd";
+import { Flex, Spin, Table } from "antd";
 import EChartsReact from "echarts-for-react";
 import { Layout } from "react-grid-layout";
 import { useEffect, useState } from "react";
@@ -36,23 +36,34 @@ export const DashboardElementItem = ({ panel }: DashboardElementItemProps) => {
           <Spin />
         </Flex>
       ) : (
-        <EChartsReact
-          className={css`
-            height: 100% !important;
-            width: 100% !important;
-          `}
-          notMerge
-          lazyUpdate
-          option={
-            {
-              ...chart?.options,
-              color: chart?.options?.color
-                ? colorsScheme[chart?.options.color]
-                : colorsScheme["vintage"],
-            } ?? {}
-          }
-          // option={charts.find((item) => item.name === panel.i)?.options ?? {}}
-        />
+        <>
+          {chart?.chart === "table" ? (
+            <Table
+              rowKey="id"
+              columns={chart.options?.columns ?? []}
+              pagination={{ showSizeChanger: false }}
+              dataSource={chart.options?.dataSource ?? []}
+            />
+          ) : (
+            <EChartsReact
+              className={css`
+                height: 100% !important;
+                width: 100% !important;
+              `}
+              notMerge
+              lazyUpdate
+              option={
+                {
+                  ...chart?.options,
+                  color: chart?.options?.color
+                    ? colorsScheme[chart?.options.color]
+                    : colorsScheme["vintage"],
+                } ?? {}
+              }
+              // option={charts.find((item) => item.name === panel.i)?.options ?? {}}
+            />
+          )}
+        </>
       )}
     </>
   );

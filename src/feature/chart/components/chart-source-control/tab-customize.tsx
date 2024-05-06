@@ -1,7 +1,7 @@
 import { useCreateChartStore } from "@/store";
 import { css } from "@emotion/css";
 import { Collapse, Form } from "antd";
-import { chartOptions } from "./chart-options";
+import { chartOptionSchema } from "./chart-options";
 import { ChartOrientation } from "../chart-orientation";
 import { ChartTitle } from "../chart-title";
 import { ChartCustomizeOption } from "../chart-customize-option";
@@ -15,7 +15,7 @@ export const TabCustomize = () => {
 
   const [form] = Form.useForm();
 
-  const optionSchema = chartOptions?.[currentChart];
+  const optionSchema = chartOptionSchema?.[currentChart];
   const optionKeys = Object?.keys(optionSchema ?? {});
 
   const onFormChange = (value: any) => {
