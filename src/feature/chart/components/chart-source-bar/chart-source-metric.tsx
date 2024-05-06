@@ -1,10 +1,12 @@
 import { Collapse } from "antd";
+import { ChartSourceBarColumn } from "./chart-source-bar-column";
 
 export const ChartSourceMetric = () => {
   return (
     <Collapse
       ghost
       expandIconPosition="end"
+      defaultActiveKey={["columns"]}
       items={[
         {
           key: "metrics",
@@ -14,7 +16,7 @@ export const ChartSourceMetric = () => {
         {
           key: "columns",
           label: "Columns",
-          children: <p></p>,
+          children: <ChartSourceBarColumn />,
         },
       ]}
     />

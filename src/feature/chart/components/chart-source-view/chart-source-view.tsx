@@ -2,11 +2,18 @@ import { useCreateChartStore } from "@/store";
 import { css } from "@emotion/css";
 import { EmptyChart } from "./empty-chart";
 import EChartsReact from "echarts-for-react";
-import { Flex } from "antd";
+import { Empty, Flex, Table } from "antd";
 import { colorsScheme } from "@/mock-data/colors";
+import { tableColumns, tableData } from "@/mock-data/table";
+
+const CHART_LIST = ["line", "bar", "pie", "area"];
 
 export const ChartSourceView = () => {
   const { data } = useCreateChartStore();
+
+  const isChart = CHART_LIST.includes(data.key ?? "");
+
+  if (!data.key) return <EmptyChart />;
 
   return (
     <div
@@ -17,7 +24,7 @@ export const ChartSourceView = () => {
         border-left: 1px solid rgb(224, 224, 224);
       `}
     >
-      {data.key ? (
+      {isChart ? (
         <Flex
           vertical
           className={css`
@@ -39,128 +46,67 @@ export const ChartSourceView = () => {
                   ? colorsScheme[data.options.color]
                   : colorsScheme["vintage"],
                 // grid: {
-                //   top: 40,
-                //   left: 40,
-                //   right: 40,
+                //   // top: 40,
+                //   // left: 40,
+                //   // right: 40,
                 //   // bottom: 90,
                 // },
               } ?? {}
             }
             // option={{
             //   tooltip: {
-            //     trigger: "axis",
-            //     axisPointer: {
-            //       type: "shadow",
-            //     },
+            //     trigger: "item",
             //   },
-            //   dataZoom: [
-            //     {
-            //       show: true,
-            //       bottom: 0,
-            //       // realtime: true,
-            //       // start: 30,
-            //       // end: 70,
-            //       // xAxisIndex: [0, 1],
-            //     },
-            //     // {
-            //     //   type: "inside",
-            //     //   realtime: true,
-            //     //   start: 30,
-            //     //   end: 70,
-            //     //   xAxisIndex: [0, 1],
-            //     // },
-            //   ],
-            // legend: {
-            //   show: true,
-            //   right: 0,
-            //   top: 10,
-            //   // padding: [5, 5, 5, 5],
-            //   orient: "vertical",
-            //   type: "scroll",
-            // },
-            //   xAxis: {
-            //     type: "category",
-            //     data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-            //     name: "X-Axissss",
-            //     boundaryGap: false,
-            //     nameLocation: "middle",
-            //     nameGap: 50,
-            //     axisLabel: {
-            //       rotate: 45,
-            //     },
-            //     // minorTick: {
-            //     //   show: true,
-            //     // },
+            //   legend: {
+            //     orient: "vertical",
+            //     left: "left",
             //   },
-            //   yAxis: {
-            //     type: "value",
-            //     name: "Y-AxissssA",
-            //     nameLocation: "end",
-            //     nameGap: 50,
-            //     minorTick: {
-            //       show: true,
-            //     },
-            //   },
-            //   // color: ["#1890ff", "#f5222d"],
             //   series: [
             //     {
-            //       name: "Email",
-            //       type: "line",
-            //       // stack: "Total",
-            //       areaStyle: {},
-            //       emphasis: {
-            //         focus: "series",
+            //       name: "Access From",
+            //       type: "pie",
+            //       minShowLabelAngle: 10,
+            //       // radius: "60%",
+            //       // radius: [0, 0],
+            //       // radius: ["50%", "40%"],
+            //       data: [
+            //         { value: 1048, name: "Search Engine" },
+            //         { value: 735, name: "Direct" },
+            //         { value: 580, name: "Email" },
+            //         { value: 484, name: "Union Ads" },
+            //         { value: 300, name: "Video Ads" },
+            //       ],
+            //       labelLine: {
+            //         show: false,
             //       },
-            //       data: [120, 132, 101, 134, 90, 230, 210],
-            //     },
-            //     {
-            //       name: "Union Ads",
-            //       type: "line",
-            //       // stack: "Total",
-            //       areaStyle: {},
-            //       // emphasis: {
-            //       //   focus: "series",
-            //       // },
-            //       data: [220, 182, 191, 234, 290, 330, 310],
-            //     },
-            //     {
-            //       name: "Video Ads",
-            //       type: "line",
-            //       // stack: "Total",
-            //       areaStyle: {},
-            //       // emphasis: {
-            //       //   focus: "series",
-            //       // },
-            //       data: [150, 232, 201, 154, 190, 330, 410],
-            //     },
-            //     {
-            //       name: "Direct",
-            //       type: "line",
-            //       // stack: "Total",
-            //       areaStyle: {},
-            //       // emphasis: {
-            //       //   focus: "series",
-            //       // },
-            //       data: [320, 332, 301, 334, 390, 330, 320],
-            //     },
-            //     {
-            //       name: "Search Engine",
-            //       type: "line",
-            //       // stack: "Total",
             //       label: {
             //         show: true,
-            //         position: "top",
+            //         // position: "inside",
+            //         formatter: "{b}: {c} ({d}%)",
             //       },
-            //       areaStyle: {},
-            //       // emphasis: {
-            //       //   focus: "series",
-            //       // },
-            //       data: [820, 932, 901, 934, 1290, 1330, 1320],
+            //       emphasis: {
+            //         itemStyle: {
+            //           // borderRadius: 10,
+            //           // borderColor: "#fff",
+            //           // borderWidth: 2,
+            //           shadowBlur: 10,
+            //           shadowOffsetX: 0,
+            //           shadowColor: "rgba(0, 0, 0, 0.5)",
+            //         },
+            //       },
             //     },
             //   ],
             // }}
           />
         </Flex>
+      ) : data.key === "table" ? (
+        <Table
+          rowKey="id"
+          columns={tableColumns}
+          dataSource={tableData}
+          pagination={{ showSizeChanger: false }}
+          style={{ margin: "24px 0" }}
+        />
       ) : (
         <EmptyChart />
       )}

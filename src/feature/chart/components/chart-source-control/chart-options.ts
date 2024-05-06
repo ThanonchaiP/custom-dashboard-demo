@@ -16,6 +16,7 @@ export interface Title {
 export interface XAxis {
   title: boolean;
   margin: boolean;
+  position?: boolean;
 }
 
 export interface YAxis {
@@ -38,6 +39,15 @@ export interface Options {
   legend: Legend;
   xAxis: OptionXAxis;
   yAxis: OptionYAxis;
+  percentage: boolean;
+  pieSeries: {
+    labelType: boolean;
+    format: boolean;
+    showLabel: boolean;
+    labelLine: boolean;
+    outerRadius: boolean;
+    innerRadius: boolean;
+  };
 }
 
 export interface Legend {
@@ -149,9 +159,6 @@ export const chartOptions = {
     },
   },
   area: {
-    orientation: {
-      layout: true,
-    },
     title: {
       xAxis: {
         title: true,
@@ -170,6 +177,8 @@ export const chartOptions = {
       color: true,
       groupMode: true,
       showValue: true,
+      seriesStyle: true,
+      area: true,
       minorTicks: true,
       dataZoom: true,
       legend: {
@@ -193,46 +202,22 @@ export const chartOptions = {
     },
   },
   pie: {
-    orientation: {
-      layout: true,
-    },
-    title: {
-      xAxis: {
-        title: true,
-        margin: true,
-      },
-      yAxis: {
-        title: true,
-        margin: true,
-        position: true,
-      },
-    },
     options: {
-      sortBy: true,
-      sortAscending: true,
-      background: true,
       color: true,
-      groupMode: true,
-      showValue: true,
-      minorTicks: true,
-      dataZoom: true,
+      percentage: true,
       legend: {
         type: true,
         show: true,
         orientation: true,
         layout: true,
       },
-      xAxis: {
+      pieSeries: {
+        labelType: true,
         format: true,
-        rotate: true,
-        currentFormat: true,
-        bounds: true,
-      },
-      yAxis: {
-        format: true,
-        rotate: true,
-        currentFormat: true,
-        bounds: true,
+        showLabel: true,
+        labelLine: true,
+        outerRadius: true,
+        innerRadius: true,
       },
     },
   },

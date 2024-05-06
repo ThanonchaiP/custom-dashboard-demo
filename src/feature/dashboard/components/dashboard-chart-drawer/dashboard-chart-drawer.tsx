@@ -154,6 +154,7 @@ export const DashboardChartDrawer = ({
             <ChartItem
               key={item.name}
               item={item}
+              onSubmit={onSubmit}
               onSelecteChart={onSelecteChart}
               isAdded={alreadyChart.includes(item.name)}
               isSelected={selectedChart?.name === item.name}

@@ -4,6 +4,7 @@ import { Flex, Spin } from "antd";
 import EChartsReact from "echarts-for-react";
 import { Layout } from "react-grid-layout";
 import { useEffect, useState } from "react";
+import { colorsScheme } from "@/mock-data/colors";
 
 type DashboardElementItemProps = {
   panel: Layout;
@@ -11,6 +12,8 @@ type DashboardElementItemProps = {
 
 export const DashboardElementItem = ({ panel }: DashboardElementItemProps) => {
   const { charts } = useDataStore();
+
+  const chart = charts.find((item) => item.name === panel.i);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,7 +43,15 @@ export const DashboardElementItem = ({ panel }: DashboardElementItemProps) => {
           `}
           notMerge
           lazyUpdate
-          option={charts.find((item) => item.name === panel.i)?.options ?? {}}
+          option={
+            {
+              ...chart?.options,
+              color: chart?.options?.color
+                ? colorsScheme[chart?.options.color]
+                : colorsScheme["vintage"],
+            } ?? {}
+          }
+          // option={charts.find((item) => item.name === panel.i)?.options ?? {}}
         />
       )}
     </>

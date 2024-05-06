@@ -11,6 +11,7 @@ type ChartItemProps = {
   item: Chart;
   isAdded?: boolean;
   isSelected?: boolean;
+  onSubmit?: () => void;
   onSelecteChart: (chart: Chart) => void;
 };
 
@@ -18,6 +19,7 @@ export const ChartItem = ({
   item,
   isAdded,
   isSelected,
+  onSubmit,
   onSelecteChart,
 }: ChartItemProps) => {
   const onClick = () => {
@@ -48,6 +50,12 @@ export const ChartItem = ({
         }
       `}
       onClick={onClick}
+      onDoubleClick={() => {
+        onClick();
+        setTimeout(() => {
+          onSubmit?.();
+        }, 300);
+      }}
     >
       <Flex gap={16}>
         <div

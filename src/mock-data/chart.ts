@@ -8,9 +8,16 @@ export const chartOptions = {
         type: "shadow",
       },
     },
+    legend: {
+      show: true,
+      right: 0,
+      top: 10,
+      orient: "horizontal",
+      type: "scroll",
+    },
     xAxis: {
       type: "category",
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      data: ["2010", "2011", "2012", "2013", "2014"],
       nameLocation: "middle",
     },
     yAxis: {
@@ -19,10 +26,45 @@ export const chartOptions = {
     color: "vintage",
     series: [
       {
-        name: "Direct",
-        data: [150, 230, 224, 218, 135, 147, 260],
+        name: "Forest",
         type: "bar",
-        showBackground: true,
+        stack: "total",
+        barGap: 0,
+        label: "labelOption1",
+        emphasis: {
+          focus: "series",
+        },
+        data: [320, 332, 301, 334, 390],
+      },
+      {
+        name: "Steppe",
+        type: "bar",
+        stack: "total",
+        label: "labelOption2",
+        emphasis: {
+          focus: "series",
+        },
+        data: [220, 182, 191, 234, 290],
+      },
+      {
+        name: "Desert",
+        type: "bar",
+        stack: "total",
+        label: "labelOption3",
+        emphasis: {
+          focus: "series",
+        },
+        data: [150, 232, 201, 154, 190],
+      },
+      {
+        name: "Wetland",
+        type: "bar",
+        stack: "total",
+        label: "labelOption4",
+        emphasis: {
+          focus: "series",
+        },
+        data: [98, 77, 101, 99, 40],
       },
     ],
   },
@@ -44,9 +86,11 @@ export const chartOptions = {
       type: "category",
       data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       nameLocation: "middle",
+      name: "",
       boundaryGap: false,
     },
     yAxis: {
+      name: "",
       type: "value",
     },
     color: "vintage",

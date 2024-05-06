@@ -7,12 +7,11 @@ import { ChartTitle } from "../chart-title";
 import { ChartCustomizeOption } from "../chart-customize-option";
 import { styleValues } from "@/mock-data/options";
 import { useEffect } from "react";
+import { convertChartOptionToForm } from "../../utils/chart";
 
 export const TabCustomize = () => {
   const { data, setOptions } = useCreateChartStore();
   const currentChart = (data.key ?? "") as string;
-
-  // console.log(data);
 
   const [form] = Form.useForm();
 
@@ -99,9 +98,28 @@ export const TabCustomize = () => {
           ...value,
         },
       });
+    } else if (key === "pieSeries") {
+      setOptions({
+        series: data.options?.series.map((item: any) => {
+          let radius = ["56%", "30%"];
+
+          if (value[key]?.outerRadius) {
+            radius[0] = `${value[key].outerRadius}%`;
+          }
+          if (value[key]?.innerRadius) {
+            radius[1] = `${value[key].innerRadius}%`;
+          }
+
+          return {
+            ...item,
+            ...value[key],
+            radius,
+          };
+        }),
+      });
     } else if (key === "series") {
       setOptions({
-        series: data.options.series.map((item: any) => {
+        series: data.options.series.map((item: any, index: number) => {
           let newSeries = {
             ...item,
             ...value[key],
@@ -117,24 +135,60 @@ export const TabCustomize = () => {
           }
 
           if (value[key].areaStyle) {
-            if (value[key].areaStyle.show === false) {
+            const areaStyle = value[key].areaStyle;
+
+            if ("opacity" in areaStyle) {
+              newSeries = {
+                ...newSeries,
+                areaStyle: {
+                  show: true,
+                  ...areaStyle,
+                },
+              };
+            } else if (value[key].areaStyle.show === false) {
               delete newSeries?.areaStyle;
             }
           }
 
+          // if (
+          //   value[key].label &&
+          //   data.key === "area" &&
+          //   index !== data.options.series.length - 1
+          // ) {
+          //   delete newSeries?.label;
+          // }
+
           return newSeries;
         }),
+      });
+    } else if (key === "layout") {
+      setOptions({
+        layout: value.layout,
+        xAxis: data.options.yAxis,
+        yAxis: data.options.xAxis,
       });
     } else {
       setOptions(value);
     }
   };
 
-  console.log(data.options);
+  useEffect(() => {
+    // form.resetFields();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.key]);
 
   useEffect(() => {
-    form.resetFields();
-  }, [data.key, form]);
+    form.setFieldsValue({
+      ...(convertChartOptionToForm(data.options) ?? {}),
+    });
+    // form.setFieldsValue({
+    //   legend: {
+    //     ...data.options?.legend,
+    //     orientation: getOrientation(data.options?.legend),
+    //   },
+    // });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.key]);
 
   if (!currentChart || !optionSchema) return null;
 
@@ -143,9 +197,6 @@ export const TabCustomize = () => {
       layout="vertical"
       form={form}
       onValuesChange={(value) => onFormChange(value)}
-      initialValues={{
-        ...data.options,
-      }}
       className={css`
         .ant-form-item {
           margin-bottom: 12px !important;

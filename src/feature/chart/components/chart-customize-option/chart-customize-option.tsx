@@ -1,4 +1,4 @@
-import { Checkbox, Form, Select, Slider, Typography } from "antd";
+import { Checkbox, Form, InputNumber, Select, Slider, Typography } from "antd";
 import { Options } from "../chart-source-control/chart-options";
 import { ChartColorFormItem } from "./chart-color-form-item";
 import { seriesStyleOptions } from "@/mock-data/options";
@@ -32,6 +32,15 @@ export const ChartCustomizeOption = ({
 
       {data?.color && <ChartColorFormItem />}
 
+      {data?.percentage && (
+        <Form.Item
+          label="PERCENTAGE THRESHOLD"
+          name={["pieSeries", "minShowLabelAngle"]}
+        >
+          <InputNumber min={0} style={{ width: "100%" }} />
+        </Form.Item>
+      )}
+
       {data?.seriesStyle && (
         <Form.Item
           label="Series Style"
@@ -61,11 +70,11 @@ export const ChartCustomizeOption = ({
       )}
 
       {data?.groupMode && (
-        <Form.Item label="Group Mode">
+        <Form.Item label="Group Mode" name={["series", "stack"]}>
           <Select
             options={[
-              { label: "Stacked", value: "stacked" },
-              { label: "Grouped", value: "grouped" },
+              { label: "Stacked", value: "total" },
+              { label: "Grouped", value: "" },
             ]}
             placeholder="Select..."
           />
@@ -136,6 +145,7 @@ export const ChartCustomizeOption = ({
           </Checkbox>
         </Form.Item>
       )}
+
       {data?.legend && (
         <>
           <Typography.Text style={{ fontSize: 12 }} strong>
@@ -225,6 +235,104 @@ export const ChartCustomizeOption = ({
                 </Form.Item>
               )}
             </>
+          )}
+
+          {data.yAxis && (
+            <>
+              <Typography.Text style={{ fontSize: 12 }} strong>
+                Y Axis
+              </Typography.Text>
+
+              {data.yAxis.format && (
+                <Form.Item
+                  label="Format"
+                  initialValue={"auto"}
+                  name={["yAxis", "format"]}
+                >
+                  <Select
+                    options={[{ label: "Adaptive formatting", value: "auto" }]}
+                    placeholder="Select..."
+                  />
+                </Form.Item>
+              )}
+
+              {data.yAxis.rotate && (
+                <Form.Item
+                  label="ROTATE X AXIS LABEL"
+                  name={["yAxis", "axisLabel", "rotate"]}
+                  initialValue={0}
+                >
+                  <Select
+                    options={[
+                      { label: "0°", value: 0 },
+                      { label: "45°", value: 45 },
+                      { label: "90°", value: 90 },
+                    ]}
+                  />
+                </Form.Item>
+              )}
+            </>
+          )}
+        </>
+      )}
+
+      {data?.pieSeries && (
+        <>
+          <Typography.Text style={{ fontSize: 12 }} strong>
+            Series Order
+          </Typography.Text>
+          {data.pieSeries.labelType && (
+            <Form.Item name={["pieSeries", "labelType"]} label="Label Type">
+              <Select options={[]} placeholder="Select..." />
+            </Form.Item>
+          )}
+          {data.pieSeries.format && (
+            <Form.Item name={["pieSeries", "format"]} label="NUMBER FORMAT">
+              <Select options={[]} placeholder="Select..." />
+            </Form.Item>
+          )}
+          {data.pieSeries.showLabel && (
+            <Form.Item
+              valuePropName="checked"
+              name={["pieSeries", "label", "show"]}
+            >
+              <Checkbox
+                style={{ fontSize: 12, color: "#666666", marginBottom: 12 }}
+              >
+                SHOW LABELS
+              </Checkbox>
+            </Form.Item>
+          )}
+          {data.pieSeries.showLabel && (
+            <Form.Item
+              valuePropName="checked"
+              name={["pieSeries", "labelLine", "show"]}
+            >
+              <Checkbox
+                style={{ fontSize: 12, color: "#666666", marginBottom: 12 }}
+              >
+                LABEL LINE
+              </Checkbox>
+            </Form.Item>
+          )}
+
+          <Typography.Text style={{ fontSize: 12 }} strong>
+            Pie shape
+          </Typography.Text>
+
+          {data.pieSeries.outerRadius && (
+            <Form.Item
+              name={["pieSeries", "outerRadius"]}
+              label="OUTER RADIUS"
+              initialValue={56}
+            >
+              <Slider max={100} />
+            </Form.Item>
+          )}
+          {data.pieSeries.innerRadius && (
+            <Form.Item name={["pieSeries", "innerRadius"]} label="INNER RADIUS">
+              <Slider max={100} />
+            </Form.Item>
           )}
         </>
       )}

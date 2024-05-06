@@ -2,8 +2,11 @@ import { css } from "@emotion/css";
 import { Tabs } from "antd";
 import { TabData } from "./tab-data";
 import { TabCustomize } from "./tab-customize";
+import { useCreateChartStore } from "@/store";
 
 export const ChartSourceControl = () => {
+  const { data } = useCreateChartStore();
+
   return (
     <div
       className={css`
@@ -56,6 +59,7 @@ export const ChartSourceControl = () => {
           {
             key: "customize",
             label: "CUSTOMIZE",
+            disabled: !data.key,
             children: <TabCustomize />,
           },
         ]}

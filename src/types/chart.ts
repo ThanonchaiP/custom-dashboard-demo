@@ -14,3 +14,9 @@ export type Chart = {
   options: any;
   date?: string;
 };
+
+export type Column = {
+  name: string;
+  type: string;
+  key: string;
+};

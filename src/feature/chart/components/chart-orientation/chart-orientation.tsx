@@ -10,8 +10,8 @@ export const ChartOrientation = ({ data }: ChartOrientationProps) => {
   return (
     <>
       {data?.layout && (
-        <Form.Item label="Layout" name="layout" initialValue="horizontal">
-          <Segmented<string> options={["horizontal", "vertical"]} />
+        <Form.Item label="Layout" name="layout" initialValue="vertical">
+          <Segmented<string> options={["vertical", "horizontal"]} />
         </Form.Item>
       )}
     </>

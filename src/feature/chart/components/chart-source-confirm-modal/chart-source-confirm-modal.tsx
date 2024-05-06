@@ -29,6 +29,15 @@ export const ChartSourceConfirmModal = ({
     await form.validateFields();
     const values = form.getFieldsValue();
 
+    // console.log(data);
+
+    // console.log({
+    //   ...values,
+    //   ...data,
+    //   chart: data.key,
+    //   date: new Date().toISOString(),
+    // });
+
     addChart({
       ...values,
       ...data,

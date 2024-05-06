@@ -6,6 +6,13 @@ export const seriesStyleOptions = {
     { label: "Step - middle", value: "step-middle" },
     { label: "Step - end", value: "step-end" },
   ],
+  area: [
+    { label: "Line", value: "line" },
+    { label: "Smooth Line", value: "smooth" },
+    { label: "Step - start", value: "step-start" },
+    { label: "Step - middle", value: "step-middle" },
+    { label: "Step - end", value: "step-end" },
+  ],
 } as Record<string, { label: string; value: string }[]>;
 
 export const styleValues = {

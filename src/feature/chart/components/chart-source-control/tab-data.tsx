@@ -4,6 +4,7 @@ import { charts } from "./options";
 import { useCreateChartStore } from "@/store";
 import { ChartType } from "@/types";
 import { chartOptions } from "@/mock-data";
+import { TabQuery } from "./tab-query";
 
 export const TabData = () => {
   const { data: store, setData } = useCreateChartStore();
@@ -50,6 +51,7 @@ export const TabData = () => {
       <Collapse
         ghost
         expandIconPosition="end"
+        defaultActiveKey={["query"]}
         className={css`
           .ant-collapse-item-active {
             .ant-collapse-content-box {
@@ -67,8 +69,8 @@ export const TabData = () => {
         items={[
           {
             key: "query",
-            label: <>Query</>,
-            children: <p></p>,
+            label: "Query",
+            children: <TabQuery />,
           },
           {
             key: "advancedAnalytics",
