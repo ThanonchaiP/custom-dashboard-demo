@@ -19,7 +19,9 @@ export default function ChartsPage() {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      render: (text, record) => (
+        <a onClick={() => router.push(`/charts/${record.name}`)}>{text}</a>
+      ),
     },
     {
       title: "Type",

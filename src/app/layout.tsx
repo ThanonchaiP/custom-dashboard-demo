@@ -8,6 +8,7 @@ import Link from "next/link";
 
 import "./globals.css";
 import { css } from "@emotion/css";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
             <Link href="/charts">Charts</Link>
           </Flex>
           {children}
+          <Toaster />
         </AntdRegistry>
       </body>
     </html>

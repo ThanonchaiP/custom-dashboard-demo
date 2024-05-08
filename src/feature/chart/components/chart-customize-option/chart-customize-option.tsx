@@ -165,41 +165,52 @@ export const ChartCustomizeOption = ({
               </Checkbox>
             </Form.Item>
           )}
-          {data.legend.type && (
-            <Form.Item label="Type" name={["legend", "type"]}>
-              <Select
-                options={[
-                  { label: "Plain", value: "plain" },
-                  { label: "Scroll", value: "scroll" },
-                ]}
-                placeholder="Select..."
-              />
+
+          {
+            <Form.Item
+              noStyle
+              shouldUpdate={(prevValues, currentValues) =>
+                prevValues.legend?.show !== currentValues.legend?.show
+              }
+            >
+              {({ getFieldValue }) => {
+                if (getFieldValue(["legend", "show"])) {
+                  return (
+                    <>
+                      {data.legend?.type && (
+                        <Form.Item label="Type" name={["legend", "type"]}>
+                          <Select
+                            options={[
+                              { label: "Plain", value: "plain" },
+                              { label: "Scroll", value: "scroll" },
+                            ]}
+                            placeholder="Select..."
+                          />
+                        </Form.Item>
+                      )}
+                      {data?.legend?.orientation && (
+                        <Form.Item
+                          label="Orientation"
+                          name={["legend", "orientation"]}
+                          initialValue={"top"}
+                        >
+                          <Select
+                            options={[
+                              { label: "Top", value: "top" },
+                              { label: "Bottom", value: "bottom" },
+                              { label: "Left", value: "left" },
+                              { label: "Right", value: "right" },
+                            ]}
+                            placeholder="Select..."
+                          />
+                        </Form.Item>
+                      )}
+                    </>
+                  );
+                }
+              }}
             </Form.Item>
-          )}
-          {data.legend.orientation && (
-            <Form.Item label="Orientation" name={["legend", "orientation"]}>
-              <Select
-                options={[
-                  { label: "Top", value: "top" },
-                  { label: "Bottom", value: "bottom" },
-                  { label: "Left", value: "left" },
-                  { label: "Right", value: "right" },
-                ]}
-                placeholder="Select..."
-              />
-            </Form.Item>
-          )}
-          {/* {data.legend.layout && (
-            <Form.Item label="Layout">
-              <Select
-                options={[
-                  { label: "Horizontal", value: "horizontal" },
-                  { label: "Vertical", value: "vertical" },
-                ]}
-                placeholder="Select..."
-              />
-            </Form.Item>
-          )} */}
+          }
 
           {data.xAxis && (
             <>

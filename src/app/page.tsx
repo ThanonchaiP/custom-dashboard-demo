@@ -12,10 +12,12 @@ import { MoreOutlined } from "@ant-design/icons";
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import { useRouter } from "next/navigation";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 export default function DragFromOutsideLayout() {
+  const router = useRouter();
   const { clearAlreadyChart, removeAlreadyChart } = useDashboardStore();
   const { dashboard, setDashboard, clearDashboard, removeDashboardElement } =
     useDataStore();
@@ -139,7 +141,14 @@ export default function DragFromOutsideLayout() {
                       trigger={["click"]}
                       menu={{
                         items: [
-                          { key: "edit", label: "Edit chart" },
+                          {
+                            key: "edit",
+                            label: "Edit chart",
+                            onClick: () =>
+                              router.push(
+                                `/charts/${panel.i.replaceAll(" ", "_")}`
+                              ),
+                          },
                           {
                             key: "delete",
                             label: "Delete chart",

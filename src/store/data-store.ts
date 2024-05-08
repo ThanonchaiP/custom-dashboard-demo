@@ -14,6 +14,7 @@ type DataStore = {
   charts: Chart[];
   dashboard: DashboardState;
   addChart: (chart: Chart) => void;
+  updateChart: (chart: Chart) => void;
   setDashboard: (dashboard: Partial<DashboardState>) => void;
   removeChart: (name: string) => void;
   removeDashboardElement: (name: string) => void;
@@ -45,6 +46,13 @@ export const useDataStore = create(
             ...dashboard,
           },
         });
+      },
+      updateChart: (chart: Chart) => {
+        const newCharts = get().charts.map((c) =>
+          c.name === chart.name ? chart : c
+        );
+
+        set({ charts: newCharts });
       },
       removeDashboardElement: (name: string) => {
         const newcurrentLayout = get().dashboard.currentLayout.filter(

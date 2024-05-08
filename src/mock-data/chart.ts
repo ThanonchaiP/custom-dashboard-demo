@@ -221,6 +221,34 @@ export const chartOptions = {
       },
     ],
   },
+  table: {
+    columns: [
+      {
+        title: "name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "age",
+        dataIndex: "age",
+        key: "age",
+      },
+      {
+        title: "address",
+        dataIndex: "address",
+        key: "address",
+      },
+    ],
+    dataSource: Array.from({ length: 100 }, (_, i) => ({
+      id: i,
+      name: `Edward King ${i}`,
+      age: 32,
+      address: `London, Park Lane no. ${i}`,
+      year: new Date().getFullYear(),
+      platform: `PC-${i}`,
+      publisher: `Microsoft`,
+    })),
+  },
 } as Record<string, any>;
 
 export const dictionaryCharts = {
@@ -228,4 +256,5 @@ export const dictionaryCharts = {
   line: "Line Chart",
   pie: "Pie Chart",
   area: "Area Chart",
+  table: "Table",
 } as Record<string, string>;

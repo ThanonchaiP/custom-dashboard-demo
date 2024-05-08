@@ -4,7 +4,13 @@ import { TabCustomize } from "./tab-customize";
 import { useCreateChartStore } from "@/store";
 import { TabData } from "../chart-tab-data";
 
-export const ChartSourceControl = () => {
+type ChartSourceControlProps = {
+  isEditor?: boolean;
+};
+
+export const ChartSourceControl = ({
+  isEditor = false,
+}: ChartSourceControlProps) => {
   const { data } = useCreateChartStore();
 
   return (
@@ -54,7 +60,7 @@ export const ChartSourceControl = () => {
           {
             key: "data",
             label: "DATA",
-            children: <TabData />,
+            children: <TabData isEditor={isEditor} />,
           },
           {
             key: "customize",

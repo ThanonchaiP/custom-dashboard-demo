@@ -8,7 +8,11 @@ import { TabQuery } from "./components/tab-query";
 import { TabQueryTable } from "./components/tab-query-table";
 import { chartOptionSchema } from "../chart-source-control/chart-options";
 
-export const TabData = () => {
+type TabDataProps = {
+  isEditor?: boolean;
+};
+
+export const TabData = ({ isEditor = false }: TabDataProps) => {
   const { data: store, setData } = useCreateChartStore();
 
   const currentChart = (store.key ?? "") as string;
@@ -18,6 +22,9 @@ export const TabData = () => {
   const onChangeChart = (chart: ChartType) => {
     setData({
       key: chart,
+      // options: isEditor
+      //   ? store.options
+      //   : chartOptions?.[chart as string] ?? undefined,
       options: chartOptions?.[chart as string] ?? undefined,
       dataset: "public.FCC 2018 Survey",
     });
